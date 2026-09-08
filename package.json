@@ -1,0 +1,26 @@
+{
+  "name": "stellar-pos-backend",
+  "version": "0.1.0",
+  "private": true,
+  "description": "StellarPOS Backend API Foundation (~2% Milestone)",
+  "main": "src/server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node --watch src/server.js",
+    "prisma:generate": "prisma generate"
+  },
+  "dependencies": {
+    "@prisma/client": "^6.3.1",
+    "@stellar/stellar-sdk": "^13.1.0",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "effect": "^3.22.1",
+    "express": "^4.21.2",
+    "helmet": "^8.0.0",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {
+    "prisma": "^6.3.1"
+  }
+}

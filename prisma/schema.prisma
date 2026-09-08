@@ -1,0 +1,43 @@
+// Prisma Schema for StellarPOS
+// Designed for PostgreSQL with extensibility for multi-merchant POS architecture
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum PaymentStatus {
+  PENDING
+  COMPLETED
+  FAILED
+  EXPIRED
+}
+
+enum PaymentAsset {
+  USDC
+  XLM
+}
+
+model Payment {
+  id            String        @id @default(uuid())
+  paymentId     String        @unique @map("payment_id")
+  amount        Decimal       @db.Decimal(18, 7)
+  asset         PaymentAsset  @default(USDC)
+  status        PaymentStatus @default(PENDING)
+  stellarTxHash String?       @map("stellar_tx_hash")
+  merchantId    String?       @map("merchant_id")
+  memo          String?
+  customerAddress String?     @map("customer_address")
+  metadata      Json?
+  createdAt     DateTime      @default(now()) @map("created_at")
+  updatedAt     DateTime      @updatedAt @map("updated_at")
+
+  @@index([paymentId])
+  @@index([status])
+  @@index([merchantId])
+  @@map("payments")
+}
